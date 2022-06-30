@@ -1,10 +1,11 @@
+# imports
 import cv2
 import numpy as np
 import face_recognition
 import os
 from datetime import datetime
 
-
+# fetching image
 path = 'Training_images'
 images = []
 classNames = []
@@ -16,10 +17,10 @@ for cl in myList:
     classNames.append(os.path.splitext(cl)[0])
 print(classNames)
 
-
+# encoding image
 def findEncodings(images):
     encodeList = []
-
+  
 
     for img in images:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -28,6 +29,7 @@ def findEncodings(images):
     return encodeList
 
 
+# marking attendance to attendance.csv
 def markAttendance(name):
     with open('Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
@@ -46,8 +48,10 @@ def markAttendance(name):
 encodeListKnown = findEncodings(images)
 print('Encoding Complete')
 
+# capturing image through videocam
 cap = cv2.VideoCapture(0)
 
+# matching with existing image
 while True:
     success, img = cap.read()
 
